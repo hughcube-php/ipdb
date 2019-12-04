@@ -5,7 +5,8 @@ namespace HughCube\IpDb\Proxies\District;
 class Proxy extends \HughCube\IpDb\Proxies\Proxy
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
+     *
      * @return Info
      */
     public function findInfo($ip, $language)
