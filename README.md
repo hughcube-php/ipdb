@@ -8,8 +8,8 @@
     <a href="https://github.com/hughcube/ipdb/actions?query=workflow%3ALint">
         <img src="https://github.com/hughcube/ipdb/workflows/Lint/badge.svg" alt="Lint Actions status">
     </a>
-    <a href="https://styleci.io/repos/222594109">
-        <img src="https://github.styleci.io/repos/222594109/shield?branch=master" alt="StyleCI">
+    <a href="https://styleci.io/repos/214374408">
+        <img src="https://github.styleci.io/repos/214374408/shield?branch=master" alt="StyleCI">
     </a>
     <a href="https://scrutinizer-ci.com/g/hughcube/ipdb/?branch=master">
         <img src="https://scrutinizer-ci.com/g/hughcube/ipdb/badges/coverage.png?b=master" alt="Code Coverage">
