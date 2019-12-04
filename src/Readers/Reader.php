@@ -14,7 +14,7 @@ abstract class Reader
      */
     protected $fileSize;
 
-    protected $nodeCount  = 0;
+    protected $nodeCount = 0;
     protected $nodeOffset = 0;
 
     /**
@@ -75,7 +75,11 @@ abstract class Reader
      */
     public function getSupportLanguages()
     {
-        return (isset($this->meta['languages']) && is_array($this->meta['languages'])) ? array_keys($this->meta['languages']) : [];
+        if (isset($this->meta['languages']) && is_array($this->meta['languages'])) {
+            return array_keys($this->meta['languages']);
+        }
+
+        return [];
     }
 
     /**
@@ -102,7 +106,7 @@ abstract class Reader
     protected function init()
     {
         $this->fileSize = $this->computeFileSize();
-        if ($this->fileSize === false){
+        if ($this->fileSize === false) {
             throw new \UnexpectedValueException("Error determining the size of data.");
         }
 
@@ -110,12 +114,12 @@ abstract class Reader
         $text = $this->read(4, $metaLength);
 
         $this->meta = json_decode($text, true);
-        if (isset($this->meta['fields']) === false || isset($this->meta['languages']) === false){
+        if (isset($this->meta['fields']) === false || isset($this->meta['languages']) === false) {
             throw new \Exception('IP Database metadata error.');
         }
 
         $fileSize = 4 + $metaLength + $this->meta['total_size'];
-        if ($fileSize != $this->fileSize){
+        if ($fileSize != $this->fileSize) {
             throw  new \Exception('IP Database size error.');
         }
 
@@ -132,31 +136,30 @@ abstract class Reader
      */
     public function find($ip, $language)
     {
-        if (!$this->isSupportLanguage($language)){
+        if (!$this->isSupportLanguage($language)) {
             throw new \InvalidArgumentException("language : {$language} not support.");
         }
 
-        if (!Ip::isIp($ip)){
+        if (!Ip::isIp($ip)) {
             throw new \InvalidArgumentException("The value \"$ip\" is not a valid IP address.");
         }
 
-        if (Ip::isIp4($ip) && !$this->isSupportV4()){
+        if (Ip::isIp4($ip) && !$this->isSupportV4()) {
             throw new \InvalidArgumentException("The Database not support IPv4 address.");
-        }//
-        elseif (Ip::isIp6($ip) && !$this->isSupportV6()){
+        } elseif (Ip::isIp6($ip) && !$this->isSupportV6()) {
             throw new \InvalidArgumentException("The Database not support IPv6 address.");
         }
 
-        try{
+        try {
             $node = $this->findNode($ip);
 
-            if ($node > 0){
+            if ($node > 0) {
                 $data = $this->resolve($node);
                 $values = explode("\t", $data);
 
                 return array_slice($values, $this->meta['languages'][$language], count($this->meta['fields']));
             }
-        }catch(\Throwable $exception){
+        } catch (\Throwable $exception) {
         }
 
         return null;
@@ -172,7 +175,7 @@ abstract class Reader
     public function findMap($ip, $language)
     {
         $array = $this->find($ip, $language);
-        if (null === $array){
+        if (null === $array) {
             return null;
         }
 
@@ -203,41 +206,41 @@ abstract class Reader
         $key = substr($binary, 0, 2);
         $node = 0;
         $index = 0;
-        if ($bitCount === 32){
-            if ($this->v4offset === 0){
-                for($i = 0; $i < 96 && $node < $this->nodeCount; $i++){
+        if ($bitCount === 32) {
+            if ($this->v4offset === 0) {
+                for ($i = 0; $i < 96 && $node < $this->nodeCount; $i++) {
                     $idx = ($i >= 80) ? 1 : 0;
                     $node = $this->readNode($node, $idx);
-                    if ($node > $this->nodeCount){
+                    if ($node > $this->nodeCount) {
                         return 0;
                     }
                 }
                 $this->v4offset = $node;
-            }else{
+            } else {
                 $node = $this->v4offset;
             }
-        }else{
-            if (isset($this->v6offsetCache[$key])){
+        } else {
+            if (isset($this->v6offsetCache[$key])) {
                 $index = 16;
                 $node = $this->v6offsetCache[$key];
             }
         }
 
-        for($i = $index; $i < $bitCount; $i++){
-            if ($node >= $this->nodeCount){
+        for ($i = $index; $i < $bitCount; $i++) {
+            if ($node >= $this->nodeCount) {
                 break;
             }
 
             $node = $this->readNode($node, 1 & ((0xFF & ord($binary[$i >> 3])) >> 7 - ($i % 8)));
 
-            if ($i == 15){
+            if ($i == 15) {
                 $this->v6offsetCache[$key] = $node;
             }
         }
 
-        if ($node === $this->nodeCount){
+        if ($node === $this->nodeCount) {
             return 0;
-        }elseif ($node > $this->nodeCount){
+        } elseif ($node > $this->nodeCount) {
             return $node;
         }
 
@@ -263,7 +266,7 @@ abstract class Reader
     private function resolve($node)
     {
         $resolved = $node - $this->nodeCount + $this->nodeCount * 8;
-        if ($resolved >= $this->fileSize){
+        if ($resolved >= $this->fileSize) {
             return null;
         }
 
@@ -285,12 +288,12 @@ abstract class Reader
      */
     private function readNodeData($offset, $length)
     {
-        if (0 >= $length){
+        if (0 >= $length) {
             return '';
         }
 
         $value = $this->read(($offset + $this->nodeOffset), $length);
-        if (strlen($value) === $length){
+        if (strlen($value) === $length) {
             return $value;
         }
 

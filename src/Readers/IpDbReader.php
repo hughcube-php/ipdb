@@ -21,12 +21,13 @@ class IpDbReader extends Reader
      */
     public function __construct($database)
     {
-        if (!is_readable($database)){
-            throw new \InvalidArgumentException("The IP Database file \"{$database}\" does not exist or is not readable.");
+        if (!is_readable($database)) {
+            $message = "The IP Database file \"{$database}\" does not exist or is not readable.";
+            throw new \InvalidArgumentException($message);
         }
 
         $this->file = @fopen($database, 'rb');
-        if (!is_resource($this->file)){
+        if (!is_resource($this->file)) {
             throw new \InvalidArgumentException("IP Database File opening \"{$database}\".");
         }
 
@@ -57,7 +58,7 @@ class IpDbReader extends Reader
      */
     protected function read($offset, $length)
     {
-        if (0 !== fseek($this->file, $offset)){
+        if (0 !== fseek($this->file, $offset)) {
             return false;
         }
 
@@ -69,7 +70,7 @@ class IpDbReader extends Reader
      */
     public function close()
     {
-        if (is_resource($this->file)){
+        if (is_resource($this->file)) {
             fclose($this->file);
         }
     }

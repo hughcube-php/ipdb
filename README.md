@@ -1,28 +1,47 @@
-<h1 align="center"> ipdb </h1>
+<h1 align="center">PHP IP DB</h1>
 
-ipdb [![Build Status](https://travis-ci.com/hughcube/ipdb.svg?branch=master)](https://travis-ci.com/hughcube/ipdb)
 
+<p>
+    <a href="https://github.com/hughcube/ipdb/actions?query=workflow%3ATest">
+        <img src="https://github.com/hughcube/ipdb/workflows/Test/badge.svg" alt="Test Actions status">
+    </a>
+    <a href="https://github.com/hughcube/ipdb/actions?query=workflow%3ALint">
+        <img src="https://github.com/hughcube/ipdb/workflows/Lint/badge.svg" alt="Lint Actions status">
+    </a>
+    <a href="https://styleci.io/repos/222594109">
+        <img src="https://github.styleci.io/repos/222594109/shield?branch=master" alt="StyleCI">
+    </a>
+    <a href="https://scrutinizer-ci.com/g/hughcube/ipdb/?branch=master">
+        <img src="https://scrutinizer-ci.com/g/hughcube/ipdb/badges/coverage.png?b=master" alt="Code Coverage">
+    </a>
+    <a href="https://scrutinizer-ci.com/g/hughcube/ipdb/?branch=master">
+        <img src="https://scrutinizer-ci.com/g/hughcube/ipdb/badges/quality-score.png?b=master" alt="Scrutinizer Code Quality">
+    </a> 
+    <a href="https://scrutinizer-ci.com/g/hughcube/ipdb/?branch=master">
+        <img src="https://scrutinizer-ci.com/g/hughcube/ipdb/badges/code-intelligence.svg?b=master" alt="Code Intelligence Status">
+    </a>        
+    <a href="https://github.com/hughcube/ipdb">
+        <img src="https://img.shields.io/badge/php-%3E%3D%207.0-8892BF.svg" alt="PHP Versions Supported">
+    </a>
+    <a href="https://packagist.org/packages/hughcube/ipdb">
+        <img src="https://poser.pugx.org/hughcube/ipdb/version" alt="Latest Stable Version">
+    </a>
+    <a href="https://packagist.org/packages/hughcube/ipdb">
+        <img src="https://poser.pugx.org/hughcube/ipdb/downloads" alt="Total Downloads">
+    </a>
+    <a href="https://github.com/hughcube/ipdb/blob/master/LICENSE">
+        <img src="https://img.shields.io/badge/license-MIT-428f7e.svg" alt="License">
+    </a>
+    <a href="https://packagist.org/packages/hughcube/ipdb">
+        <img src="https://poser.pugx.org/hughcube/ipdb/v/unstable" alt="Latest Unstable Version">
+    </a>
+    <a href="https://packagist.org/packages/hughcube/ipdb">
+        <img src="https://poser.pugx.org/hughcube/ipdb/composerlock" alt="composer.lock available">
+    </a>
+</p>
 
 ## Installing
 
 ```shell
 $ composer require hughcube/ipdb -vvv
 ```
-
-## Usage
-
-TODO
-
-## Contributing
-
-You can contribute in one of three ways:
-
-1. File bug reports using the [issue tracker](https://github.com/hughcube/ipdb/issues).
-2. Answer questions or fix bugs on the [issue tracker](https://github.com/hughcube/ipdb/issues).
-3. Contribute new features or update the wiki.
-
-_The code contribution process is not very formal. You just need to make sure that you follow the PSR-0, PSR-1, and PSR-2 coding guidelines. Any new code contributions must be accompanied by unit tests where applicable._
-
-## License
-
-MIT
