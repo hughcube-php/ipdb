@@ -54,7 +54,7 @@ class ProxyTest extends TestCase
     /**
      * @param \HughCube\IpDb\Proxies\Proxy $proxy
      */
-    protected function runTestProxy(Proxy $proxy, $infoClass, $ips = ['8.8.8.8'])
+    protected function runTestProxy(Proxy $proxy, $infoClass, $ips = ['8.8.8.8', '183.17.230.50'])
     {
         $languages = $proxy->getReader()->getSupportLanguages();
 
