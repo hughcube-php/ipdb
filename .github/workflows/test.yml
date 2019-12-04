@@ -20,7 +20,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
           extension-csv: mbstring, xdebug #optional, setup extensions
-          ini-values-csv: post_max_size=256M, short_open_tag=On #optional, setup php.ini configuration
+          ini-values-csv: post_max_size=512M, short_open_tag=On #optional, setup php.ini configuration
           coverage: xdebug #optional, setup coverage driver
           pecl: true #optional, setup PECL
 
