@@ -16,13 +16,16 @@ class IpDbReader extends Reader
 
     /**
      * Reader constructor.
+     *
      * @param $database
+     *
      * @throws \Exception
      */
     public function __construct($database)
     {
         if (!is_readable($database)) {
             $message = "The IP Database file \"{$database}\" does not exist or is not readable.";
+
             throw new \InvalidArgumentException($message);
         }
 
@@ -37,8 +40,9 @@ class IpDbReader extends Reader
     }
 
     /**
-     * @return PHPReader
      * @throws \Exception
+     *
+     * @return PHPReader
      */
     public function getPHPReader()
     {
@@ -46,7 +50,7 @@ class IpDbReader extends Reader
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function computeFileSize()
     {
@@ -54,7 +58,7 @@ class IpDbReader extends Reader
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function read($offset, $length)
     {
@@ -66,7 +70,7 @@ class IpDbReader extends Reader
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function close()
     {

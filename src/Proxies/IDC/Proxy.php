@@ -3,13 +3,13 @@
 namespace HughCube\IpDb\Proxies\IDC;
 
 /**
- * Class Proxy
- * @package HughCube\IpDb\Proxies\IDC
+ * Class Proxy.
  */
 class Proxy extends \HughCube\IpDb\Proxies\Proxy
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
+     *
      * @return Info
      */
     public function findInfo($ip, $language)

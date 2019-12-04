@@ -14,7 +14,9 @@ abstract class Proxy
 
     /**
      * Proxy constructor.
+     *
      * @param $reader
+     *
      * @throws \Exception
      */
     public function __construct(Reader $reader = null)
@@ -25,14 +27,15 @@ abstract class Proxy
     }
 
     /**
-     * 获取默认的 Reader
+     * 获取默认的 Reader.
+     *
+     * @throws \Exception
      *
      * @return Reader
-     * @throws \Exception
      */
     protected function getDefaultReader()
     {
-        $dbFile = __DIR__ . '/../../data/ipipfree.ipdb';
+        $dbFile = __DIR__.'/../../data/ipipfree.ipdb';
 
         return new IpDbReader($dbFile);
     }
@@ -46,10 +49,11 @@ abstract class Proxy
     }
 
     /**
-     * 根据ip查找信息
+     * 根据ip查找信息.
      *
-     * @param string $ip 查找的ip
+     * @param string $ip       查找的ip
      * @param string $language 语言
+     *
      * @return array|null
      */
     public function find($ip, $language)
@@ -58,10 +62,11 @@ abstract class Proxy
     }
 
     /**
-     * 根据ip查找信息map
+     * 根据ip查找信息map.
      *
-     * @param string $ip 查找的ip
+     * @param string $ip       查找的ip
      * @param string $language 语言
+     *
      * @return array|null
      */
     public function findMap($ip, $language)
@@ -72,8 +77,9 @@ abstract class Proxy
     /**
      * 根据ip查找信息对象
      *
-     * @param string $ip 查找的ip
+     * @param string $ip       查找的ip
      * @param string $language 语言
+     *
      * @return mixed
      */
     abstract public function findInfo($ip, $language);

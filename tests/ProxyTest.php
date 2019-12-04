@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 class ProxyTest extends TestCase
 {
     /**
-     * BaseStation
+     * BaseStation.
      *
      * @throws \Exception
      */
@@ -19,7 +19,7 @@ class ProxyTest extends TestCase
     }
 
     /**
-     * City
+     * City.
      *
      * @throws \Exception
      */
@@ -30,7 +30,7 @@ class ProxyTest extends TestCase
     }
 
     /**
-     * District
+     * District.
      *
      * @throws \Exception
      */
@@ -41,7 +41,7 @@ class ProxyTest extends TestCase
     }
 
     /**
-     * IDC
+     * IDC.
      *
      * @throws \Exception
      */
@@ -58,7 +58,7 @@ class ProxyTest extends TestCase
     {
         $languages = $proxy->getReader()->getSupportLanguages();
 
-        foreach($ips as $ip){
+        foreach ($ips as $ip) {
             $result = $proxy->find($ip, $languages[0]);
             $this->assertArrayHasKey(0, $result);
             $this->assertArrayHasKey(1, $result);
