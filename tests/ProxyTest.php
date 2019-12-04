@@ -2,6 +2,10 @@
 
 namespace HughCube\IpDb\Tests;
 
+use HughCube\IpDb\Exceptions\ExceptionInterface;
+use HughCube\IpDb\Exceptions\InvalidArgumentException;
+use HughCube\IpDb\Exceptions\InvalidIpException;
+use HughCube\IpDb\Exceptions\NotSupportLanguageException;
 use HughCube\IpDb\Proxies\Proxy;
 use PHPUnit\Framework\TestCase;
 
@@ -56,22 +60,84 @@ class ProxyTest extends TestCase
      */
     protected function runTestProxy(Proxy $proxy, $infoClass, $ips = ['8.8.8.8', '183.17.230.50'])
     {
-        $languages = $proxy->getReader()->getSupportLanguages();
-
         foreach ($ips as $ip) {
-            $result = $proxy->find($ip, $languages[0]);
-            $this->assertArrayHasKey(0, $result);
-            $this->assertArrayHasKey(1, $result);
-            $this->assertArrayHasKey(2, $result);
+            foreach ($proxy->getReader()->getSupportLanguages() as $language) {
+                $result = $proxy->find($ip, $language);
+                $this->assertArrayHasKey(0, $result);
+                $this->assertArrayHasKey(1, $result);
+                $this->assertArrayHasKey(2, $result);
 
-            $result = $proxy->findMap($ip, $languages[0]);
-            $this->assertArrayHasKey('country_name', $result);
-            $this->assertArrayHasKey('region_name', $result);
-            $this->assertArrayHasKey('city_name', $result);
+                $result = $proxy->findMap($ip, $language);
+                $this->assertArrayHasKey('country_name', $result);
+                $this->assertArrayHasKey('region_name', $result);
+                $this->assertArrayHasKey('city_name', $result);
 
-            $result = $proxy->findInfo($ip, $languages[0]);
-            $this->assertInstanceOf($infoClass, $result);
-            $this->assertNotEmpty($result->country_name);
+                $result = $proxy->findInfo($ip, $language);
+                $this->assertInstanceOf($infoClass, $result);
+                $this->assertNotEmpty($result->country_name);
+            }
+
+            $exception = null;
+            try {
+                $proxy->find($ip, time());
+            } catch (\Throwable $exception) {
+            }
+            $this->assertInstanceOf(NotSupportLanguageException::class, $exception);
+            $this->assertInstanceOf(InvalidArgumentException::class, $exception);
+            $this->assertInstanceOf(\InvalidArgumentException::class, $exception);
+            $this->assertInstanceOf(ExceptionInterface::class, $exception);
+
+            $exception = null;
+            try {
+                $proxy->findMap($ip, time());
+            } catch (\Throwable $exception) {
+            }
+            $this->assertInstanceOf(NotSupportLanguageException::class, $exception);
+            $this->assertInstanceOf(InvalidArgumentException::class, $exception);
+            $this->assertInstanceOf(\InvalidArgumentException::class, $exception);
+            $this->assertInstanceOf(ExceptionInterface::class, $exception);
+
+            $exception = null;
+            try {
+                $proxy->findInfo($ip, time());
+            } catch (\Throwable $exception) {
+            }
+            $this->assertInstanceOf(NotSupportLanguageException::class, $exception);
+            $this->assertInstanceOf(InvalidArgumentException::class, $exception);
+            $this->assertInstanceOf(\InvalidArgumentException::class, $exception);
+            $this->assertInstanceOf(ExceptionInterface::class, $exception);
         }
+
+        $invalidIp = time();
+
+        $exception = null;
+        try {
+            $proxy->find($invalidIp, $language);
+        } catch (\Throwable $exception) {
+        }
+        $this->assertInstanceOf(InvalidIpException::class, $exception);
+        $this->assertInstanceOf(InvalidArgumentException::class, $exception);
+        $this->assertInstanceOf(\InvalidArgumentException::class, $exception);
+        $this->assertInstanceOf(ExceptionInterface::class, $exception);
+
+        $exception = null;
+        try {
+            $proxy->findMap($invalidIp, $language);
+        } catch (\Throwable $exception) {
+        }
+        $this->assertInstanceOf(InvalidIpException::class, $exception);
+        $this->assertInstanceOf(InvalidArgumentException::class, $exception);
+        $this->assertInstanceOf(\InvalidArgumentException::class, $exception);
+        $this->assertInstanceOf(ExceptionInterface::class, $exception);
+
+        $exception = null;
+        try {
+            $proxy->findInfo($invalidIp, $language);
+        } catch (\Throwable $exception) {
+        }
+        $this->assertInstanceOf(InvalidIpException::class, $exception);
+        $this->assertInstanceOf(InvalidArgumentException::class, $exception);
+        $this->assertInstanceOf(\InvalidArgumentException::class, $exception);
+        $this->assertInstanceOf(ExceptionInterface::class, $exception);
     }
 }

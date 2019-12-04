@@ -2,6 +2,8 @@
 
 namespace HughCube\IpDb\Readers;
 
+use HughCube\IpDb\Exceptions\DbFileException;
+
 class IpDbReader extends Reader
 {
     /**
@@ -26,12 +28,12 @@ class IpDbReader extends Reader
         if (!is_readable($database)) {
             $message = "The IP Database file \"{$database}\" does not exist or is not readable.";
 
-            throw new \InvalidArgumentException($message);
+            throw new DbFileException($message);
         }
 
         $this->file = @fopen($database, 'rb');
         if (!is_resource($this->file)) {
-            throw new \InvalidArgumentException("IP Database File opening \"{$database}\".");
+            throw new DbFileException("IP Database File opening \"{$database}\".");
         }
 
         $this->database = $database;
@@ -40,9 +42,9 @@ class IpDbReader extends Reader
     }
 
     /**
+     * @return PHPReader
      * @throws \Exception
      *
-     * @return PHPReader
      */
     public function getPHPReader()
     {

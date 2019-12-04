@@ -2,6 +2,9 @@
 
 namespace HughCube\IpDb\Readers;
 
+use HughCube\IpDb\Exceptions\InvalidIpException;
+use HughCube\IpDb\Exceptions\NotSupportIpTypeException;
+use HughCube\IpDb\Exceptions\NotSupportLanguageException;
 use HughCube\IpDb\Helpers\Ip;
 
 abstract class Reader
@@ -141,17 +144,17 @@ abstract class Reader
     public function find($ip, $language)
     {
         if (!$this->isSupportLanguage($language)) {
-            throw new \InvalidArgumentException("language : {$language} not support.");
+            throw new NotSupportLanguageException("language : {$language} not support.");
         }
 
         if (!Ip::isIp($ip)) {
-            throw new \InvalidArgumentException("The value \"$ip\" is not a valid IP address.");
+            throw new InvalidIpException("The value \"$ip\" is not a valid IP address.");
         }
 
         if (Ip::isIp4($ip) && !$this->isSupportV4()) {
-            throw new \InvalidArgumentException('The Database not support IPv4 address.');
+            throw new NotSupportIpTypeException('The Database not support IPv4 address.');
         } elseif (Ip::isIp6($ip) && !$this->isSupportV6()) {
-            throw new \InvalidArgumentException('The Database not support IPv6 address.');
+            throw new NotSupportIpTypeException('The Database not support IPv6 address.');
         }
 
         try {
@@ -200,9 +203,9 @@ abstract class Reader
      *
      * @param $ip
      *
+     * @return int
      * @throws \Exception
      *
-     * @return int
      */
     private function findNode($ip)
     {
@@ -256,9 +259,9 @@ abstract class Reader
      * @param $node
      * @param $index
      *
+     * @return mixed
      * @throws \Exception
      *
-     * @return mixed
      */
     private function readNode($node, $index)
     {
@@ -268,9 +271,9 @@ abstract class Reader
     /**
      * @param $node
      *
+     * @return mixed
      * @throws \Exception
      *
-     * @return mixed
      */
     private function resolve($node)
     {
@@ -293,9 +296,9 @@ abstract class Reader
      * @param int $offset
      * @param int $length
      *
+     * @return string
      * @throws \Exception
      *
-     * @return string
      */
     private function readNodeData($offset, $length)
     {
