@@ -42,9 +42,9 @@ class IpDbReader extends Reader
     }
 
     /**
-     * @return PHPReader
      * @throws \Exception
      *
+     * @return PHPReader
      */
     public function getPHPReader()
     {

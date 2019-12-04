@@ -78,6 +78,7 @@ class ProxyTest extends TestCase
             }
 
             $exception = null;
+
             try {
                 $proxy->find($ip, time());
             } catch (\Throwable $exception) {
@@ -88,6 +89,7 @@ class ProxyTest extends TestCase
             $this->assertInstanceOf(ExceptionInterface::class, $exception);
 
             $exception = null;
+
             try {
                 $proxy->findMap($ip, time());
             } catch (\Throwable $exception) {
@@ -98,6 +100,7 @@ class ProxyTest extends TestCase
             $this->assertInstanceOf(ExceptionInterface::class, $exception);
 
             $exception = null;
+
             try {
                 $proxy->findInfo($ip, time());
             } catch (\Throwable $exception) {
@@ -111,6 +114,7 @@ class ProxyTest extends TestCase
         $invalidIp = time();
 
         $exception = null;
+
         try {
             $proxy->find($invalidIp, $language);
         } catch (\Throwable $exception) {
@@ -121,6 +125,7 @@ class ProxyTest extends TestCase
         $this->assertInstanceOf(ExceptionInterface::class, $exception);
 
         $exception = null;
+
         try {
             $proxy->findMap($invalidIp, $language);
         } catch (\Throwable $exception) {
@@ -131,6 +136,7 @@ class ProxyTest extends TestCase
         $this->assertInstanceOf(ExceptionInterface::class, $exception);
 
         $exception = null;
+
         try {
             $proxy->findInfo($invalidIp, $language);
         } catch (\Throwable $exception) {

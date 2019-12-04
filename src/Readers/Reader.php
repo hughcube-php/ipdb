@@ -203,9 +203,9 @@ abstract class Reader
      *
      * @param $ip
      *
-     * @return int
      * @throws \Exception
      *
+     * @return int
      */
     private function findNode($ip)
     {
@@ -259,9 +259,9 @@ abstract class Reader
      * @param $node
      * @param $index
      *
-     * @return mixed
      * @throws \Exception
      *
+     * @return mixed
      */
     private function readNode($node, $index)
     {
@@ -271,9 +271,9 @@ abstract class Reader
     /**
      * @param $node
      *
-     * @return mixed
      * @throws \Exception
      *
+     * @return mixed
      */
     private function resolve($node)
     {
@@ -296,9 +296,9 @@ abstract class Reader
      * @param int $offset
      * @param int $length
      *
-     * @return string
      * @throws \Exception
      *
+     * @return string
      */
     private function readNodeData($offset, $length)
     {
