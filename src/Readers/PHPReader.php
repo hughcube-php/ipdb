@@ -8,7 +8,9 @@ class PHPReader extends Reader
 
     /**
      * Reader constructor.
+     *
      * @param string $data
+     *
      * @throws \Exception
      */
     public function __construct($data)
@@ -19,7 +21,7 @@ class PHPReader extends Reader
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function computeFileSize()
     {
@@ -27,7 +29,7 @@ class PHPReader extends Reader
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function read($offset, $length)
     {

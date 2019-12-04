@@ -3,8 +3,7 @@
 namespace HughCube\IpDb\Helpers;
 
 /**
- * Class Ip
- * @package ipip\db
+ * Class Ip.
  */
 class Ip
 {
@@ -12,6 +11,7 @@ class Ip
      * 判断是否为一个合法的IP地址
      *
      * @param string $ip 需要判断的字符;
+     *
      * @return bool
      */
     public static function isIp($ip)
@@ -20,9 +20,10 @@ class Ip
     }
 
     /**
-     * 判断是否是ipv4
+     * 判断是否是ipv4.
      *
      * @param string $ip
+     *
      * @return bool
      */
     public static function isIp4($ip)
@@ -31,9 +32,10 @@ class Ip
     }
 
     /**
-     * 判断是否是ipv6
+     * 判断是否是ipv6.
      *
      * @param string $ip
+     *
      * @return bool
      */
     public static function isIp6($ip)
@@ -42,9 +44,10 @@ class Ip
     }
 
     /**
-     * 判断是否是内网ip
+     * 判断是否是内网ip.
      *
      * @param string $ip
+     *
      * @return bool
      */
     public static function isPrivateIp($ip)
@@ -54,9 +57,10 @@ class Ip
     }
 
     /**
-     * 判断是否是公网ip
+     * 判断是否是公网ip.
      *
      * @param string $ip
+     *
      * @return bool
      */
     public static function isPublicIp($ip)

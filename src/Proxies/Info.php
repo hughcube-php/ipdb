@@ -3,8 +3,7 @@
 namespace HughCube\IpDb\Proxies;
 
 /**
- * Class Info
- * @package HughCube\IpDb\Proxies
+ * Class Info.
  */
 class Info
 {

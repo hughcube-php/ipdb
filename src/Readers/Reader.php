@@ -23,23 +23,24 @@ abstract class Reader
     protected $meta;
 
     /**
-     * 计算文件大小
+     * 计算文件大小.
      *
-     * @return integer
+     * @return int
      */
     abstract protected function computeFileSize();
 
     /**
-     * 读取文件内容
+     * 读取文件内容.
      *
-     * @param integer $offset 指针偏移
-     * @param integer $length 读取长度
+     * @param int $offset 指针偏移
+     * @param int $length 读取长度
+     *
      * @return string|false
      */
     abstract protected function read($offset, $length);
 
     /**
-     * 是否支持IP V6
+     * 是否支持IP V6.
      *
      * @return bool
      */
@@ -49,7 +50,7 @@ abstract class Reader
     }
 
     /**
-     * 是否支持IP V4
+     * 是否支持IP V4.
      *
      * @return bool
      */
@@ -62,6 +63,7 @@ abstract class Reader
      * 是否支持指定语言
      *
      * @param string $language
+     *
      * @return bool
      */
     public function isSupportLanguage($language)
@@ -71,6 +73,7 @@ abstract class Reader
 
     /**
      * 支持的语言
+     *
      * @return array
      */
     public function getSupportLanguages()
@@ -83,7 +86,7 @@ abstract class Reader
     }
 
     /**
-     * @return int  UTC Timestamp
+     * @return int UTC Timestamp
      */
     public function getBuildTime()
     {
@@ -91,7 +94,7 @@ abstract class Reader
     }
 
     /**
-     * 获取mete数据
+     * 获取mete数据.
      *
      * @return array
      */
@@ -107,7 +110,7 @@ abstract class Reader
     {
         $this->fileSize = $this->computeFileSize();
         if ($this->fileSize === false) {
-            throw new \UnexpectedValueException("Error determining the size of data.");
+            throw new \UnexpectedValueException('Error determining the size of data.');
         }
 
         $metaLength = unpack('N', $this->read(0, 4))[1];
@@ -128,10 +131,11 @@ abstract class Reader
     }
 
     /**
-     * 查找ip的信息
+     * 查找ip的信息.
      *
      * @param string $ip
      * @param string $language
+     *
      * @return array|null
      */
     public function find($ip, $language)
@@ -145,9 +149,9 @@ abstract class Reader
         }
 
         if (Ip::isIp4($ip) && !$this->isSupportV4()) {
-            throw new \InvalidArgumentException("The Database not support IPv4 address.");
+            throw new \InvalidArgumentException('The Database not support IPv4 address.');
         } elseif (Ip::isIp6($ip) && !$this->isSupportV6()) {
-            throw new \InvalidArgumentException("The Database not support IPv6 address.");
+            throw new \InvalidArgumentException('The Database not support IPv6 address.');
         }
 
         try {
@@ -161,22 +165,21 @@ abstract class Reader
             }
         } catch (\Throwable $exception) {
         }
-
-        return null;
     }
 
     /**
-     * 查找ip的信息, 带上字段
+     * 查找ip的信息, 带上字段.
      *
      * @param string $ip
      * @param string $language
+     *
      * @return array|false|null
      */
     public function findMap($ip, $language)
     {
         $array = $this->find($ip, $language);
         if (null === $array) {
-            return null;
+            return;
         }
 
         return array_combine($this->meta['fields'], $array);
@@ -193,11 +196,13 @@ abstract class Reader
     private $v6offsetCache = [];
 
     /**
-     *查找Ip的节点
+     *查找Ip的节点.
      *
      * @param $ip
-     * @return int
+     *
      * @throws \Exception
+     *
+     * @return int
      */
     private function findNode($ip)
     {
@@ -244,14 +249,16 @@ abstract class Reader
             return $node;
         }
 
-        throw new \Exception("find node failed.");
+        throw new \Exception('find node failed.');
     }
 
     /**
      * @param $node
      * @param $index
-     * @return mixed
+     *
      * @throws \Exception
+     *
+     * @return mixed
      */
     private function readNode($node, $index)
     {
@@ -260,14 +267,16 @@ abstract class Reader
 
     /**
      * @param $node
-     * @return mixed
+     *
      * @throws \Exception
+     *
+     * @return mixed
      */
     private function resolve($node)
     {
         $resolved = $node - $this->nodeCount + $this->nodeCount * 8;
         if ($resolved >= $this->fileSize) {
-            return null;
+            return;
         }
 
         $bytes = $this->readNodeData($resolved, 2);
@@ -279,12 +288,14 @@ abstract class Reader
     }
 
     /**
-     * 读取节点数据
+     * 读取节点数据.
      *
-     * @param integer $offset
-     * @param integer $length
-     * @return string
+     * @param int $offset
+     * @param int $length
+     *
      * @throws \Exception
+     *
+     * @return string
      */
     private function readNodeData($offset, $length)
     {
@@ -297,11 +308,11 @@ abstract class Reader
             return $value;
         }
 
-        throw new \Exception("The Database file read bad data.");
+        throw new \Exception('The Database file read bad data.');
     }
 
     /**
-     * 回收资源
+     * 回收资源.
      *
      * @return bool
      */
