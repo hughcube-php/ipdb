@@ -20,7 +20,7 @@ class IpDbReader extends Reader
     /**
      * Reader constructor.
      *
-     * @param  string  $database
+     * @param string $database
      *
      * @throws Exception
      */
@@ -41,9 +41,9 @@ class IpDbReader extends Reader
     }
 
     /**
-     * @return PHPReader
      * @throws Exception
      *
+     * @return PHPReader
      */
     public function getPHPReader()
     {
