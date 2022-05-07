@@ -31,26 +31,26 @@ class IpTest extends TestCase
 
     public function testGetDefaultLanguage()
     {
-        $this->assertIsString(Ip::getDefaultLanguage());
+        $this->assertTrue(is_string(Ip::getDefaultLanguage()));
     }
 
     public function testIsSupportV4()
     {
-        $this->assertIsBool(Ip::isSupportV4());
+        $this->assertTrue(is_bool(Ip::isSupportV4()));
     }
 
     public function testIsSupportV6()
     {
-        $this->assertIsBool(Ip::isSupportV6());
+        $this->assertTrue(is_bool(Ip::isSupportV6()));
     }
 
     public function testIsSupportLanguage()
     {
-        $this->assertIsBool(Ip::isSupportLanguage('test'));
+        $this->assertTrue(is_bool(Ip::isSupportLanguage('test')));
     }
 
     public function testLanguages()
     {
-        $this->assertIsArray(Ip::languages());
+        $this->assertTrue(is_array(Ip::languages()));
     }
 }
