@@ -11,10 +11,7 @@ namespace HughCube\IpDb\Proxies\IDC;
 
 class Info extends \HughCube\IpDb\Proxies\Info
 {
-    public $country_name = '';
-    public $region_name = '';
-    public $city_name = '';
-    public $owner_domain = '';
-    public $isp_domain = '';
-    public $idc = '';
+    public $owner_domain;
+    public $isp_domain;
+    public $idc;
 }

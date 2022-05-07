@@ -2,9 +2,13 @@
 
 namespace HughCube\IpDb\Proxies;
 
+use Exception;
 use HughCube\IpDb\Readers\IpDbReader;
 use HughCube\IpDb\Readers\Reader;
 
+/**
+ * @mixin Reader
+ */
 abstract class Proxy
 {
     /**
@@ -15,9 +19,9 @@ abstract class Proxy
     /**
      * Proxy constructor.
      *
-     * @param $reader
+     * @param  Reader|null  $reader
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function __construct(Reader $reader = null)
     {
@@ -29,15 +33,14 @@ abstract class Proxy
     /**
      * 获取默认的 Reader.
      *
-     * @throws \Exception
-     *
      * @return Reader
+     * @throws Exception
      */
-    protected function getDefaultReader()
+    protected function getDefaultReader(): Reader
     {
-        $dbFile = __DIR__.'/../../data/ipipfree.ipdb';
+        $reader = new IpDbReader((__DIR__.'/../../data/ipipfree.ipdb'));
 
-        return new IpDbReader($dbFile);
+        return $reader->getPHPReader();
     }
 
     /**
@@ -51,8 +54,8 @@ abstract class Proxy
     /**
      * 根据ip查找信息.
      *
-     * @param string $ip       查找的ip
-     * @param string $language 语言
+     * @param  string  $ip  查找的ip
+     * @param  string  $language  语言
      *
      * @return array|null
      */
@@ -64,8 +67,8 @@ abstract class Proxy
     /**
      * 根据ip查找信息map.
      *
-     * @param string $ip       查找的ip
-     * @param string $language 语言
+     * @param  string  $ip  查找的ip
+     * @param  string  $language  语言
      *
      * @return array|null
      */
@@ -77,10 +80,20 @@ abstract class Proxy
     /**
      * 根据ip查找信息对象
      *
-     * @param string $ip       查找的ip
-     * @param string $language 语言
+     * @param  string  $ip  查找的ip
+     * @param  string  $language  语言
      *
      * @return mixed
      */
     abstract public function findInfo($ip, $language);
+
+    /**
+     * @param  string  $name
+     * @param  array  $arguments
+     * @return mixed
+     */
+    public function __call(string $name, array $arguments = [])
+    {
+        return $this->reader->$name(...$arguments);
+    }
 }

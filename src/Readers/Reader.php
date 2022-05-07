@@ -2,10 +2,12 @@
 
 namespace HughCube\IpDb\Readers;
 
+use Exception;
 use HughCube\IpDb\Exceptions\InvalidIpException;
 use HughCube\IpDb\Exceptions\NotSupportIpTypeException;
 use HughCube\IpDb\Exceptions\NotSupportLanguageException;
 use HughCube\IpDb\Helpers\Ip;
+use Throwable;
 
 abstract class Reader
 {
@@ -28,15 +30,15 @@ abstract class Reader
     /**
      * 计算文件大小.
      *
-     * @return int
+     * @return int|false
      */
     abstract protected function computeFileSize();
 
     /**
      * 读取文件内容.
      *
-     * @param int $offset 指针偏移
-     * @param int $length 读取长度
+     * @param  int  $offset  指针偏移
+     * @param  int  $length  读取长度
      *
      * @return string|false
      */
@@ -65,7 +67,7 @@ abstract class Reader
     /**
      * 是否支持指定语言
      *
-     * @param string $language
+     * @param  string  $language
      *
      * @return bool
      */
@@ -107,7 +109,7 @@ abstract class Reader
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     protected function init()
     {
@@ -121,12 +123,12 @@ abstract class Reader
 
         $this->meta = json_decode($text, true);
         if (isset($this->meta['fields']) === false || isset($this->meta['languages']) === false) {
-            throw new \Exception('IP Database metadata error.');
+            throw new Exception('IP Database metadata error.');
         }
 
         $fileSize = 4 + $metaLength + $this->meta['total_size'];
         if ($fileSize != $this->fileSize) {
-            throw  new \Exception('IP Database size error.');
+            throw  new Exception('IP Database size error.');
         }
 
         $this->nodeCount = $this->meta['node_count'];
@@ -136,8 +138,8 @@ abstract class Reader
     /**
      * 查找ip的信息.
      *
-     * @param string $ip
-     * @param string $language
+     * @param  string  $ip
+     * @param  string  $language
      *
      * @return array|null
      */
@@ -166,15 +168,17 @@ abstract class Reader
 
                 return array_slice($values, $this->meta['languages'][$language], count($this->meta['fields']));
             }
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
         }
+
+        return null;
     }
 
     /**
      * 查找ip的信息, 带上字段.
      *
-     * @param string $ip
-     * @param string $language
+     * @param  string  $ip
+     * @param  string  $language
      *
      * @return array|false|null
      */
@@ -182,7 +186,7 @@ abstract class Reader
     {
         $array = $this->find($ip, $language);
         if (null === $array) {
-            return;
+            return null;
         }
 
         return array_combine($this->meta['fields'], $array);
@@ -201,13 +205,13 @@ abstract class Reader
     /**
      *查找Ip的节点.
      *
-     * @param $ip
-     *
-     * @throws \Exception
+     * @param  string  $ip
      *
      * @return int
+     * @throws Exception
+     *
      */
-    private function findNode($ip)
+    private function findNode(string $ip): int
     {
         $binary = inet_pton($ip);
         $bitCount = strlen($binary) * 8; // 32 | 128
@@ -252,16 +256,16 @@ abstract class Reader
             return $node;
         }
 
-        throw new \Exception('find node failed.');
+        throw new Exception('find node failed.');
     }
 
     /**
-     * @param $node
-     * @param $index
-     *
-     * @throws \Exception
+     * @param integer $node
+     * @param integer $index
      *
      * @return mixed
+     * @throws Exception
+     *
      */
     private function readNode($node, $index)
     {
@@ -269,17 +273,17 @@ abstract class Reader
     }
 
     /**
-     * @param $node
+     * @param integer $node
      *
-     * @throws \Exception
+     * @return string|null
+     * @throws Exception
      *
-     * @return mixed
      */
     private function resolve($node)
     {
         $resolved = $node - $this->nodeCount + $this->nodeCount * 8;
         if ($resolved >= $this->fileSize) {
-            return;
+            return null;
         }
 
         $bytes = $this->readNodeData($resolved, 2);
@@ -293,12 +297,12 @@ abstract class Reader
     /**
      * 读取节点数据.
      *
-     * @param int $offset
-     * @param int $length
-     *
-     * @throws \Exception
+     * @param  int  $offset
+     * @param  int  $length
      *
      * @return string
+     * @throws Exception
+     *
      */
     private function readNodeData($offset, $length)
     {
@@ -311,17 +315,15 @@ abstract class Reader
             return $value;
         }
 
-        throw new \Exception('The Database file read bad data.');
+        throw new Exception('The Database file read bad data.');
     }
 
     /**
      * 回收资源.
-     *
-     * @return bool
+     * @return void
      */
     public function close()
     {
-        return true;
     }
 
     public function __destruct()

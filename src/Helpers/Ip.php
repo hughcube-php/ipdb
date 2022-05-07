@@ -14,7 +14,7 @@ class Ip
      *
      * @return bool
      */
-    public static function isIp($ip)
+    public static function isIp($ip): bool
     {
         return false !== filter_var($ip, FILTER_VALIDATE_IP);
     }
@@ -26,7 +26,7 @@ class Ip
      *
      * @return bool
      */
-    public static function isIp4($ip)
+    public static function isIp4($ip): bool
     {
         return false !== filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
     }
@@ -38,7 +38,7 @@ class Ip
      *
      * @return bool
      */
-    public static function isIp6($ip)
+    public static function isIp6($ip): bool
     {
         return false !== filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
     }
@@ -50,7 +50,7 @@ class Ip
      *
      * @return bool
      */
-    public static function isPrivateIp($ip)
+    public static function isPrivateIp($ip): bool
     {
         return false === filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE)
                && false !== filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_RES_RANGE);
@@ -63,7 +63,7 @@ class Ip
      *
      * @return bool
      */
-    public static function isPublicIp($ip)
+    public static function isPublicIp($ip): bool
     {
         return false !== static::isPrivateIp($ip);
     }

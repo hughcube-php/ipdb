@@ -11,12 +11,9 @@ namespace HughCube\IpDb\Proxies\District;
 
 class Info extends \HughCube\IpDb\Proxies\Info
 {
-    public $country_name = '';
-    public $region_name = '';
-    public $city_name = '';
-    public $district_name = '';
-    public $china_admin_code = '';
-    public $covering_radius = '';
-    public $longitude = '';
-    public $latitude = '';
+    public $district_name;
+    public $china_admin_code;
+    public $covering_radius;
+    public $longitude;
+    public $latitude;
 }

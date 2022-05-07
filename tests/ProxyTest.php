@@ -2,6 +2,7 @@
 
 namespace HughCube\IpDb\Tests;
 
+use Exception;
 use HughCube\IpDb\Exceptions\ExceptionInterface;
 use HughCube\IpDb\Exceptions\InvalidArgumentException;
 use HughCube\IpDb\Exceptions\InvalidIpException;
@@ -14,7 +15,7 @@ class ProxyTest extends TestCase
     /**
      * BaseStation.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function testBaseStation()
     {
@@ -25,7 +26,7 @@ class ProxyTest extends TestCase
     /**
      * City.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function testCity()
     {
@@ -36,7 +37,7 @@ class ProxyTest extends TestCase
     /**
      * District.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function testDistrict()
     {
@@ -47,7 +48,7 @@ class ProxyTest extends TestCase
     /**
      * IDC.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function testIDC()
     {
@@ -56,9 +57,11 @@ class ProxyTest extends TestCase
     }
 
     /**
-     * @param \HughCube\IpDb\Proxies\Proxy $proxy
+     * @param  Proxy  $proxy
+     * @param $infoClass
+     * @param  string[]  $ips
      */
-    protected function runTestProxy(Proxy $proxy, $infoClass, $ips = ['8.8.8.8', '183.17.230.50'])
+    protected function runTestProxy(Proxy $proxy, $infoClass, array $ips = ['8.8.8.8', '183.17.230.50'])
     {
         foreach ($ips as $ip) {
             foreach ($proxy->getReader()->getSupportLanguages() as $language) {
