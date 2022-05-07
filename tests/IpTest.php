@@ -3,13 +3,8 @@
 namespace HughCube\IpDb\Tests;
 
 use Exception;
-use HughCube\IpDb\Exceptions\ExceptionInterface;
-use HughCube\IpDb\Exceptions\InvalidArgumentException;
-use HughCube\IpDb\Exceptions\InvalidIpException;
-use HughCube\IpDb\Exceptions\NotSupportLanguageException;
 use HughCube\IpDb\Ip;
 use HughCube\IpDb\Proxies\Info;
-use HughCube\IpDb\Proxies\Proxy;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 

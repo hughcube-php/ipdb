@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: hugh.li
  * Date: 2022/4/10
- * Time: 00:45
+ * Time: 00:45.
  */
 
 namespace HughCube\IpDb;
@@ -25,6 +25,7 @@ class Ip
         if (!static::$proxy instanceof Proxy) {
             static::$proxy = new Proxy();
         }
+
         return static::$proxy;
     }
 
@@ -34,8 +35,9 @@ class Ip
     }
 
     /**
-     * @return null|Info
      * @throws
+     *
+     * @return null|Info
      * @phpstan-ignore-next-line
      */
     public static function find(string $ip, string $language = null)

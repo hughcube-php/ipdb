@@ -57,9 +57,9 @@ class ProxyTest extends TestCase
     }
 
     /**
-     * @param  Proxy  $proxy
+     * @param Proxy $proxy
      * @param $infoClass
-     * @param  string[]  $ips
+     * @param string[] $ips
      */
     protected function runTestProxy(Proxy $proxy, $infoClass, array $ips = ['8.8.8.8', '183.17.230.50'])
     {

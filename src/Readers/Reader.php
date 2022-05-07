@@ -37,8 +37,8 @@ abstract class Reader
     /**
      * 读取文件内容.
      *
-     * @param  int  $offset  指针偏移
-     * @param  int  $length  读取长度
+     * @param int $offset 指针偏移
+     * @param int $length 读取长度
      *
      * @return string|false
      */
@@ -67,7 +67,7 @@ abstract class Reader
     /**
      * 是否支持指定语言
      *
-     * @param  string  $language
+     * @param string $language
      *
      * @return bool
      */
@@ -138,8 +138,8 @@ abstract class Reader
     /**
      * 查找ip的信息.
      *
-     * @param  string  $ip
-     * @param  string  $language
+     * @param string $ip
+     * @param string $language
      *
      * @return array|null
      */
@@ -177,8 +177,8 @@ abstract class Reader
     /**
      * 查找ip的信息, 带上字段.
      *
-     * @param  string  $ip
-     * @param  string  $language
+     * @param string $ip
+     * @param string $language
      *
      * @return array|false|null
      */
@@ -205,11 +205,11 @@ abstract class Reader
     /**
      *查找Ip的节点.
      *
-     * @param  string  $ip
+     * @param string $ip
      *
-     * @return int
      * @throws Exception
      *
+     * @return int
      */
     private function findNode(string $ip): int
     {
@@ -260,12 +260,12 @@ abstract class Reader
     }
 
     /**
-     * @param integer $node
-     * @param integer $index
+     * @param int $node
+     * @param int $index
      *
-     * @return mixed
      * @throws Exception
      *
+     * @return mixed
      */
     private function readNode($node, $index)
     {
@@ -273,11 +273,11 @@ abstract class Reader
     }
 
     /**
-     * @param integer $node
+     * @param int $node
      *
-     * @return string|null
      * @throws Exception
      *
+     * @return string|null
      */
     private function resolve($node)
     {
@@ -297,12 +297,12 @@ abstract class Reader
     /**
      * 读取节点数据.
      *
-     * @param  int  $offset
-     * @param  int  $length
+     * @param int $offset
+     * @param int $length
      *
-     * @return string
      * @throws Exception
      *
+     * @return string
      */
     private function readNodeData($offset, $length)
     {
@@ -320,6 +320,7 @@ abstract class Reader
 
     /**
      * 回收资源.
+     *
      * @return void
      */
     public function close()

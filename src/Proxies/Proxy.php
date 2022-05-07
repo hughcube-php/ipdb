@@ -19,7 +19,7 @@ abstract class Proxy
     /**
      * Proxy constructor.
      *
-     * @param  Reader|null  $reader
+     * @param Reader|null $reader
      *
      * @throws Exception
      */
@@ -33,8 +33,9 @@ abstract class Proxy
     /**
      * 获取默认的 Reader.
      *
-     * @return Reader
      * @throws Exception
+     *
+     * @return Reader
      */
     protected function getDefaultReader(): Reader
     {
@@ -54,8 +55,8 @@ abstract class Proxy
     /**
      * 根据ip查找信息.
      *
-     * @param  string  $ip  查找的ip
-     * @param  string  $language  语言
+     * @param string $ip       查找的ip
+     * @param string $language 语言
      *
      * @return array|null
      */
@@ -67,8 +68,8 @@ abstract class Proxy
     /**
      * 根据ip查找信息map.
      *
-     * @param  string  $ip  查找的ip
-     * @param  string  $language  语言
+     * @param string $ip       查找的ip
+     * @param string $language 语言
      *
      * @return array|null
      */
@@ -80,16 +81,17 @@ abstract class Proxy
     /**
      * 根据ip查找信息对象
      *
-     * @param  string  $ip  查找的ip
-     * @param  string  $language  语言
+     * @param string $ip       查找的ip
+     * @param string $language 语言
      *
      * @return mixed
      */
     abstract public function findInfo($ip, $language);
 
     /**
-     * @param  string  $name
-     * @param  array  $arguments
+     * @param string $name
+     * @param array  $arguments
+     *
      * @return mixed
      */
     public function __call(string $name, array $arguments = [])
